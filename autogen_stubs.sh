@@ -42,8 +42,8 @@ generate_opencl_error_codes(){
 
   #Form dict
   sed -n '1i\opencl_status_codes = {}
-  { s/#define \([^,]*\)\s*\([-][0-9].*\)/opencl_status_codes[\2] = "\1"/};
-  { s/#define \([^,]*\)\s*\(0x40D[4|5].*\)/opencl_status_codes[\2] = "\1"/; p };' $file >> $BASE/opencl.py
+  { s/#define \([a-Z_0-9]*\)\s*\([-][0-9].*\)/opencl_status_codes[\2] = "\1"/};
+  { s/#define \([a-Z_0-9]*\)\s*\(0x40D[4|5].*\)/opencl_status_codes[\2] = "\1"/; p };' $file >> $BASE/opencl.py
 }
 
 generate_opencl() {
@@ -55,8 +55,8 @@ generate_opencl() {
 
 
   python3 -c "import tinygrad.runtime.autogen.opencl"
-
   generate_opencl_error_codes
+
 }
 
 generate_hip() {
